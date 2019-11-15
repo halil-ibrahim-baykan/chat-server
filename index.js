@@ -4,7 +4,8 @@ const Sse = require("json-sse");
 
 const app = express();
 const messages = [];
-// const jsonparser= bodyParser.json()
+// const jsonparser= bodyParser.json()\
+const stream = new Sse();
 
 app.use(bodyParser.json());
 
@@ -14,11 +15,13 @@ app.get("/message", (req, res) => res.send(messages));
 app.post("/message", (req, res) => {
   const { message } = req.body; //bunu sor
   // const message = req.body.message
+  const string = JSON.stringify(message);
+
+  stream.send(string);
   messages.push(message);
   res.send(message);
 });
 
-const stream = new Sse();
 //stream clients connected with stream. we make stream and connect client with stream when we send data sstream everyone reach them
 //serieles = turn our data series of caractrers
 app.get("/stream", (req, res, next) => {

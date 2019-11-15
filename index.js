@@ -1,12 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Sse = require("json-sse");
+const cors = require("cors");
 
 const app = express();
 const messages = [];
 // const jsonparser= bodyParser.json()\
 const stream = new Sse();
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => res.send("hii"));

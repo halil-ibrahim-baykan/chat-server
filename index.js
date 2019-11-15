@@ -8,9 +8,11 @@ const messages = [];
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => res.send("hii"));
+app.get("/message", (req, res) => res.send(messages));
 
 app.post("/message", (req, res) => {
   const { message } = req.body; //bunu sor
+  // const message = req.body.message
   messages.push(message);
   res.send(message);
 });
